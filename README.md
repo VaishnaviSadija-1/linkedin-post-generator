@@ -18,7 +18,7 @@ This n8n-powered automation workflow helps you analyze top-performing LinkedIn p
 
 ## 🎥 Demo
 
-[![Loom Demo](https://user-images.githubusercontent.com/102853659/246312121-7dbb8cb7-e2be-4baf-9399-12d3889e97b6.png)](https://www.loom.com/share/99e6ded6bfef46b299471967fa030882?sid=0fe74c85-233d-4ef4-86e8-3525d132474d)
+[![Loom Demo]<img width="1389" height="869" alt="Image" src="https://github.com/user-attachments/assets/ae3210f4-2ef4-421b-b56e-c0e71912a334" />
 
 
 
