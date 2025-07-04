@@ -16,7 +16,8 @@ This n8n-powered automation workflow helps you analyze top-performing LinkedIn p
 6. Generate New Content (LLM Chain B) – Gemini creates a fresh branded post inspired by competitor data  
 7. Append Result – Save the generated content to a final Google Sheet for publishing or scheduling
 
-[![Watch Demo on Loom](./loom-demo-thumbnail.png)](https://www.loom.com/share/99e6ded6bfef46b299471967fa030882?sid=0fe74c85-233d-4ef4-86e8-3525d132474d)
+[![Watch Demo on Loom](https://user-images.githubusercontent.com/102853659/246312121-7dbb8cb7-e2be-4baf-9399-12d3889e97b6.png)](https://www.loom.com/share/99e6ded6bfef46b299471967fa030882?sid=0fe74c85-233d-4ef4-86e8-3525d132474d)
+
 
 ## 🧠 Why Use This
 
