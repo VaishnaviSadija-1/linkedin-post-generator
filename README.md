@@ -14,7 +14,9 @@ This n8n-powered automation workflow helps you analyze top-performing LinkedIn p
 4. Save Raw Data – Store the scraped post data in a Google Sheet for reference  
 5. Analyze with Gemini (LLM Chain A) – Find the most engaging post using AI  
 6. Generate New Content (LLM Chain B) – Gemini creates a fresh branded post inspired by competitor data  
-7. Append Result – Save the generated content to a final Google Sheet for publishing or scheduling  
+7. Append Result – Save the generated content to a final Google Sheet for publishing or scheduling
+
+[![Watch Demo on Loom](./loom-demo-thumbnail.png)](https://www.loom.com/share/99e6ded6bfef46b299471967fa030882?sid=0fe74c85-233d-4ef4-86e8-3525d132474d)
 
 ## 🧠 Why Use This
 
