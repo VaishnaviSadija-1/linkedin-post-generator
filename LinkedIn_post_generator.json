@@ -1,0 +1,432 @@
+{
+  "name": "LinkedIn Post Scrapper",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI",
+          "mode": "list",
+          "cachedResultName": "Competitor Scrapping",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "competitor",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        220,
+        0
+      ],
+      "id": "65003d4a-9961-4ddf-a711-c6ffdddc2901",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "c8A8Uo0605MKl61d",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/acts/apimaestro~linkedin-profile-posts/run-sync-get-dataset-items?token=apify_api_1PcSNVtO97D3s19ix89QCamoCu8pTx3FbdFS",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"limit\": 1,\n    \"username\": \"{{ $json['Linkedin URL'] }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "b47d5e1d-25f2-4a29-9d59-5449d7bfafcd",
+      "name": "HTTP Request",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI",
+          "mode": "list",
+          "cachedResultName": "Competitor Scrapping",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1629491342,
+          "mode": "list",
+          "cachedResultName": "Competitor posts",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI/edit#gid=1629491342"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "urn": "={{ $json.urn }}",
+            "full_urn": "={{ $json.full_urn }}",
+            "posted_at": "={{ $json.posted_at.date }}",
+            "text": "={{ $json.text }}",
+            "total_reactions": "={{ $json.stats.total_reactions }}"
+          },
+          "matchingColumns": [
+            "urn"
+          ],
+          "schema": [
+            {
+              "id": "urn",
+              "displayName": "urn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "full_urn",
+              "displayName": "full_urn",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "posted_at",
+              "displayName": "posted_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_reactions",
+              "displayName": "total_reactions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        680,
+        -20
+      ],
+      "id": "3bb0fbfc-fbc4-483e-ba3d-aee81edd7793",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "c8A8Uo0605MKl61d",
+          "name": "Google Sheets account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        220
+      ],
+      "id": "62c3bda7-f090-4ed5-948f-be9a34a11888",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "1j36Rr69L04DrNtA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"hook_type\": \"Contrasting Past and Present\",\n\t\"hook_example_text\": \"We started Delve out of a cramped MIT dorm room. Here's the story to our office in SF... (In this, show examples of the first 2 hooks of the LinkedIn Posts\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1180,
+        220
+      ],
+      "id": "490fe2da-6214-468e-8cae-6376a8d0703d",
+      "name": "Structured Output Parser3"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-exp",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1460,
+        240
+      ],
+      "id": "c69c9216-4032-450d-b0f3-9a655ce934e6",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "1j36Rr69L04DrNtA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You're a LinkedIn ghostwriter for a startup called Amplify which is a DTC clothing brand selling sustainable, ethically made apparel - we offer high-quality, eco-conscious clothing that lasts 5x longer than fast fashion, while being competitively priced for the premium segment.\n\nYour job: Analyze these 10 posts from competitors and come up with a list of popular post formats, deeply breaking down what the hook is, what the content type is, and what kind of post it is. This will be used later as the format to mimic when we actually write our post\n\n\nHere is 1 high-performing LinkedIn/Twitter posts with 500+ likes to learn from, using these, analyze them and break down their formats/hooks etc.\n\nPost Text:\n {{ $json.text }}\n\nNumber of Reactions (more=better):\n{{ $json.total_reactions }}",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1000,
+        -120
+      ],
+      "id": "9a340201-079e-4dca-96a5-c7d15a434f80",
+      "name": "Basic LLM Chain A"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You're a LinkedIn ghostwriter for a startup called Amplify which is a DTC clothing brand selling sustainable, ethically made apparel - we offer high-quality, eco-conscious clothing that lasts 5x longer than fast fashion, while being competitively priced for the premium segment. You are actually posting from the founders profile to be founder-led marketing\n\n- Premium Clothing (Basics, Activewear, Business Casual, Seasonal Collections)\n- 40% better quality than comparable brands at the same price point\n\nYour audience is:\n\n- Consumers\n- Founders\n- Business Owners\n\nThis is because you are posting through a personal brand profile talking about amplify, and LinkedIn primarily has a B2B/professional audience, and posts that resonate with emotion about building the business through challenges really resonate, as opposed to selling the product in every post. Pay attention to this detail. Your hooks are really good - but you are always selling Amplify the company & the product, when you should really be talking about you + the challenges you went through. It feels too salesy because you're not being real and authentic, which you should fix. I really like the ones where you talked about you + rejection / etc and hardships. DO NOT KEEP TALKING ABOUT THE FEATURES OF THE PRODUCT/BRAND INSTEAD YOU SHOULD GENERALIZE IT A BIT MORE FROM A FOUNDER/BUSINESS OWNER TYPE DIALOGUE (FOR EXAMPLE - REJECTION FROM A VC COULD BE ABOUT THE FACT THAT HES A FIRST TIME FOUNDER TRYING TO BUILD AN APPAREL BRAND INSTEAD OF SAYING I GOT REJECTED FOR SUSTAINABLE FASHION). THIS IS JUST AN EXAMPLE, YOU DO NOT NEED TO FOLLOW THIS EXACT EXAMPLE EVERY GENERATION, ITS JUST A BOILERPLATE TO TELL YOU HOW TO GENERATE\n\nYour job: Write 5 high-performing LinkedIn posts for Amplify that:\n\n- Feel like they're written by the founder (real, sharp, confident)\n- Use high-performing formats (e.g. bold opinion, checklist, mini-story, insight drop, spicy comparison)\n- Tone: direct, founder-led, anti-BS. Not polished marketing speak.\n\nHere is 1 high-performing LinkedIn/Twitter posts with 500+ likes to learn from, using these, generate a high performing post for our brand Amplfy, along with the hook type and text\nHook Type:\n {{ $json.output.hook_type }}\n\nHook/Post Text:\n{{ $json.output.hook_example_text }}",
+        "hasOutputParser": true,
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1440,
+        -120
+      ],
+      "id": "b617f0c0-aa73-4222-ad51-e7ea81ed80b0",
+      "name": "Basic LLM Chain B"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"post_number\": \"1\",\n\t\"post_text\": \"This is the text of the post itself\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1640,
+        240
+      ],
+      "id": "b7f178be-c7d5-4659-aa35-63ed9054ac44",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI",
+          "mode": "list",
+          "cachedResultName": "Competitor Scrapping",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2013933943,
+          "mode": "list",
+          "cachedResultName": "Generated posts",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1oVzY3qOJcKNhkE2BQDnMUhSW9TlOsxl-CkLSuYZugXI/edit#gid=2013933943"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1800,
+        -120
+      ],
+      "id": "35bd75d8-f3cf-4795-9f42-61ae0bacb990",
+      "name": "Google Sheets5",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9xTAybxquBsLi0sL",
+          "name": "Google Sheets account 4"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        0
+      ],
+      "id": "fca929f4-9b42-4ad8-9090-079f0a251e40",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain A",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain A",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser3": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain A",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain B",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain B",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain A": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain B",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain B": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "60bb84fc-e908-4ed3-831a-6167ce894ffa",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5eded76955de7ae02f9278bfc9134c611c68924c3618af63b978026ab9382bbf"
+  },
+  "id": "Qc8AV3Btt43S1SBN",
+  "tags": []
+}
