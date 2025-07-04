@@ -4,7 +4,8 @@ This n8n-powered automation workflow helps you analyze top-performing LinkedIn p
 
 📸 Workflow Overview
 
-![Workflow Screenshot](./de60822f-99d7-4e3b-97e7-7e7f9af66487.png)
+<img width="1440" alt="workflow-screenshot" src="https://github.com/user-attachments/assets/86be0073-14b6-4205-b483-0658a9214f4e" />
+
 
 ⚙️ How It Works
 
