@@ -1,7 +1,3 @@
-Got it! Here's your cleaned-up `README` content **without** markdown headers like `---`, `##`, or `#`. It’s plain and copy-paste ready for a GitHub `README.md` file:
-
----
-
 🔍 LinkedIn Competitor Post Intelligence & AI-Powered Content Generator
 
 This n8n-powered automation workflow helps you analyze top-performing LinkedIn posts from your competitors and generate similar, high-impact content for your own brand using Google Gemini AI. It simplifies competitive research, speeds up content creation, and centralizes everything in Google Sheets.
